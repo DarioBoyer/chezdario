@@ -53,7 +53,7 @@ La logique d'accès est dans `acces(f, niveau)` et `tdgOk(f, niveau)`.
 ## Travail à faire
 
 1. ~~Tester dans un navigateur~~ (fait).
-2. **Déployer** sur optionsavenir.chezdario.ca : GitHub Pages est prêt ; reste à ajouter le CNAME `optionsavenir` → `darioboyer.github.io` chez Porkbun, puis activer « Enforce HTTPS ».
+2. ~~Déployer~~ : en ligne le 9 novembre 2026 sur https://optionsavenir.chezdario.ca/ (GitHub Pages, CNAME `optionsavenir` → `darioboyer.github.io` chez Porkbun, HTTPS forcé). Si le certificat bloque un jour : retirer puis remettre le domaine personnalisé dans GitHub Pages.
 3. **Valider les préalables marqués « à valider »** : extraction de minerai, forage au diamant, forage et dynamitage, transport par camion, technologie de l'architecture, technologie minérale, plongée professionnelle, Garde côtière, éoliennes, ROV.
 4. **Idées non vérifiées à documenter avant ajout** : monteur d'acier, échafaudeur, cordiste, mécanicien d'ascenseur, entretien d'aéronefs, pilote, chef de train, foreur pétrolier, guide d'aventure.
 
