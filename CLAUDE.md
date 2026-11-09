@@ -5,7 +5,7 @@ Page web interactive d'orientation scolaire, destinée à un élève de secondai
 ## État actuel
 
 - La page est dans `docs/optionsavenir/index.html` (HTML, CSS et JavaScript en ligne, aucune dépendance, aucun build). Le dossier `docs/` est la racine publiée par GitHub Pages : `CNAME` (chezdario.ca), `.nojekyll` et `404.html` neutre. Adresse publique : https://chezdario.ca/optionsavenir/
-- **Pas de page d'accueil ni de lien vers la page** : le propriétaire tape l'adresse directement. La page porte `noindex, nofollow` pour rester hors des moteurs de recherche. Ne pas ajouter de `docs/index.html`.
+- **Accueil = page « Coming Soon » seulement, sans aucun lien vers la page** : le propriétaire tape l'adresse directement. `docs/index.html` reproduit l'aspect de l'ancienne page d'attente de Porkbun (sans logo ni statistiques) ; le propriétaire veut qu'elle reste en place. La page porte `noindex, nofollow` pour rester hors des moteurs de recherche.
 - Aperçu local : `npx http-server@14.1.1 docs -p 8642` puis http://localhost:8642/optionsavenir/.
 - 54 formations dans le tableau `D` du script (DEP, DEC, AEC, ASP et pistes hors Québec).
 - Fonctions en place :
