@@ -1,12 +1,12 @@
 # Projet : « Mes options après le secondaire »
 
-Page web interactive d'orientation scolaire, destinée à un élève de secondaire 4 et à son parent. À déployer sur **chezdario.ca**.
+Page web interactive d'orientation scolaire, destinée à un élève de secondaire 4 et à son parent. En ligne à **https://optionsavenir.chezdario.ca/**.
 
 ## État actuel
 
-- La page est dans `docs/optionsavenir/index.html` (HTML, CSS et JavaScript en ligne, aucune dépendance, aucun build). Le dossier `docs/` est la racine publiée par GitHub Pages : `CNAME` (chezdario.ca), `.nojekyll` et `404.html` neutre. Adresse publique : https://chezdario.ca/optionsavenir/
-- **Accueil = page « Coming Soon » seulement, sans aucun lien vers la page** : le propriétaire tape l'adresse directement. `docs/index.html` reproduit l'aspect de l'ancienne page d'attente de Porkbun (sans logo ni statistiques) ; le propriétaire veut qu'elle reste en place. La page porte `noindex, nofollow` pour rester hors des moteurs de recherche.
-- Aperçu local : `npx http-server@14.1.1 docs -p 8642` puis http://localhost:8642/optionsavenir/.
+- La page est dans `docs/index.html` (HTML, CSS et JavaScript en ligne, aucune dépendance, aucun build). Le dossier `docs/` est publié par GitHub Pages (dépôt DarioBoyer/chezdario, branche `main`) : `CNAME` (optionsavenir.chezdario.ca), `.nojekyll` et `404.html` neutre.
+- **Ne pas toucher à chezdario.ca** : la racine du domaine garde la page « Coming Soon » de Porkbun, voulue par le propriétaire. Seul le sous-domaine `optionsavenir` pointe vers GitHub (CNAME DNS vers darioboyer.github.io). Aucun lien vers la page nulle part : le propriétaire tape l'adresse directement. La page porte `noindex, nofollow`.
+- Aperçu local : `npx http-server@14.1.1 docs -p 8642` puis http://localhost:8642/.
 - 54 formations dans le tableau `D` du script (DEP, DEC, AEC, ASP et pistes hors Québec).
 - Fonctions en place :
   - graphique cliquable à 5 niveaux de scolarité (sans 3e sec., 3e sec., 4e sec., DES, DES + maths et sciences) ;
@@ -53,7 +53,7 @@ La logique d'accès est dans `acces(f, niveau)` et `tdgOk(f, niveau)`.
 ## Travail à faire
 
 1. ~~Tester dans un navigateur~~ (fait).
-2. **Déployer** sur chezdario.ca, par exemple à l'adresse `/options/`. L'hébergement du site reste à préciser par le propriétaire.
+2. **Déployer** sur optionsavenir.chezdario.ca : GitHub Pages est prêt ; reste à ajouter le CNAME `optionsavenir` → `darioboyer.github.io` chez Porkbun, puis activer « Enforce HTTPS ».
 3. **Valider les préalables marqués « à valider »** : extraction de minerai, forage au diamant, forage et dynamitage, transport par camion, technologie de l'architecture, technologie minérale, plongée professionnelle, Garde côtière, éoliennes, ROV.
 4. **Idées non vérifiées à documenter avant ajout** : monteur d'acier, échafaudeur, cordiste, mécanicien d'ascenseur, entretien d'aéronefs, pilote, chef de train, foreur pétrolier, guide d'aventure.
 

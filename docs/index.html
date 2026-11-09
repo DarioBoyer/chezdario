@@ -1,24 +1,331 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>chezdario.ca — Coming Soon</title>
+<title>Mes options après le secondaire</title>
+<meta name="description" content="Explore les formations professionnelles et techniques accessibles selon ton niveau au secondaire : DEP, DEC, AEC, métiers de la construction, des mines, de la mer et plus.">
 <meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15181b" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://optionsavenir.chezdario.ca/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_CA">
+<meta property="og:url" content="https://optionsavenir.chezdario.ca/">
+<meta property="og:title" content="Mes options après le secondaire">
+<meta property="og:description" content="Choisis jusqu'où tu te rends au secondaire et regarde quelles formations s'ouvrent ou se ferment.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c2410c'/%3E%3Crect x='7' y='17' width='4' height='8' rx='1' fill='%23fff'/%3E%3Crect x='14' y='12' width='4' height='13' rx='1' fill='%23fff'/%3E%3Crect x='21' y='7' width='4' height='18' rx='1' fill='%23fff'/%3E%3C/svg%3E">
 <style>
-body { margin: 0; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #F3F3F3; color: #222; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-.card { background: #fff; border-radius: 6px; max-width: 640px; width: 90%; text-align: center; padding: 40px 40px 36px; box-sizing: border-box; }
-.label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-.label:after { content: ""; display: block; width: 28px; height: 3px; background: #EF7878; margin: 6px auto 14px; }
-.domain { font-size: 28px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; word-break: break-all; margin: 0; }
-.domain:after { content: ""; display: block; width: 42px; height: 3px; background: #EF7878; margin: 12px auto 0; }
-@media (max-width: 480px) { .card { padding: 28px 20px; } .domain { font-size: 20px; } }
+:root{--bg:#f6f4ef;--card:#fff;--ink:#1d2327;--mute:#5f6b73;--line:#d9d5cb;--acc:#c2410c;--acc2:#fff1e8;--ok:#15803d;--okbg:#e7f6ec;--mid:#a16207;--midbg:#fdf3d7;--no:#8a8f94;--nobg:#ecebe7}
+@media (prefers-color-scheme:dark){:root{--bg:#15181b;--card:#1f2428;--ink:#eceae4;--mute:#a3acb3;--line:#353c42;--acc:#fb923c;--acc2:#3a2416;--ok:#4ade80;--okbg:#153222;--mid:#facc15;--midbg:#3a3010;--no:#8a9299;--nobg:#2a2f34}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:1.7rem;line-height:1.2;margin:.2em 0 .2em}
+h2{font-size:1.15rem;margin:0 0 .5em}
+p{margin:.4em 0}
+.lead{color:var(--mute);max-width:60ch}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+/* graphique */
+.chart{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:end;margin-top:10px}
+.col{background:none;border:2px solid transparent;border-radius:12px;padding:6px 4px 8px;text-align:center;display:flex;flex-direction:column;justify-content:flex-end;min-width:0}
+.col[aria-pressed=true]{border-color:var(--acc);background:var(--acc2)}
+.stack{height:170px;display:flex;flex-direction:column;justify-content:flex-end;border-radius:8px;overflow:hidden;background:var(--nobg);margin:0 auto 6px;width:min(100%,84px)}
+.seg-ok{background:var(--ok)}
+.seg-mid{background:repeating-linear-gradient(45deg,var(--mid),var(--mid) 5px,transparent 5px,transparent 9px),var(--midbg)}
+.num{font-weight:700;font-size:1.25rem}
+.col small{display:block;color:var(--mute);font-size:.72rem;line-height:1.25}
+.col b{font-size:.85rem;display:block;line-height:1.2;margin-top:2px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--mute);margin-top:10px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:5px}
+.verdict{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--acc2);font-weight:600}
+/* filtres */
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.filters label{font-size:.8rem;color:var(--mute);display:block}
+.filters select,.filters input[type=search]{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);margin-top:3px}
+.checks{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:.92rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 12px;font-size:.88rem}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.count{color:var(--mute);font-size:.9rem;margin:14px 2px 8px}
+/* cartes */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.card.closed{opacity:.62}
+.card.out{opacity:.4;border-style:dashed}
+.card h3{margin:0;font-size:1.05rem;line-height:1.25}
+.meta{font-size:.8rem;color:var(--mute)}
+.badge{display:inline-block;font-size:.76rem;font-weight:700;border-radius:6px;padding:2px 8px}
+.b-ok{background:var(--okbg);color:var(--ok)}.b-mid{background:var(--midbg);color:var(--mid)}.b-no{background:var(--nobg);color:var(--no)}
+.desc{font-size:.92rem}
+dl{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:0;font-size:.85rem}
+dt{color:var(--mute)}dd{margin:0}
+.dots i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--line);margin-right:3px}
+.dots i.on{background:var(--acc)}
+.actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:auto;padding-top:6px;border-top:1px solid var(--line)}
+.int button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:5px 9px;font-size:.82rem}
+.int button[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#fff}
+.kill{margin-left:auto;border:1px solid var(--line);background:none;border-radius:8px;padding:5px 9px;font-size:.82rem;color:var(--mute)}
+a{color:var(--acc)}
+.card a{font-size:.85rem}
+details{border-top:1px solid var(--line);padding:10px 0}
+details:first-of-type{border-top:0}
+summary{cursor:pointer;font-weight:600}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.tools button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:7px 12px}
+.tools .primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+#picks{font-size:.95rem}
+footer{color:var(--mute);font-size:.8rem;margin-top:26px}
+/* ajouts pour la mise en ligne */
+.grid{grid-template-columns:repeat(auto-fill,minmax(min(310px,100%),1fr))}
+.chart{align-items:stretch}.col{justify-content:flex-start}
+.card,.desc,dd{overflow-wrap:anywhere}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.chip:focus-visible,.col:focus-visible{outline-offset:1px}
+@media (max-width:560px){.stack{height:120px}.col b{font-size:.72rem}.col small{display:none}}
+@media (max-width:380px){.chart{gap:4px}.col{padding:4px 2px 6px}.num{font-size:1.05rem}.col b{font-size:.66rem}h1{font-size:1.45rem}}
+@media print{body{background:#fff;color:#000}.panel:first-of-type,.filters,.chips,.checks,.tools,.actions{display:none}.card{break-inside:avoid}}
 </style>
 </head>
 <body>
-<div class="card">
-  <div class="label">Coming Soon</div>
-  <h1 class="domain">chezdario.ca</h1>
+<div class="wrap">
+<header>
+  <h1>Mes options après le secondaire</h1>
+  <p class="lead">Choisis jusqu'où tu te rends au secondaire et regarde quelles formations s'ouvrent ou se ferment. Note ton intérêt, élimine ce qui ne te dit rien : tes choix restent enregistrés dans ce navigateur.</p>
+</header>
+
+<section class="panel" aria-labelledby="t1">
+  <h2 id="t1">1. Jusqu'où je me rends au secondaire ?</h2>
+  <p class="meta">Clique sur une colonne. La hauteur montre le nombre de formations de cette liste qui te sont accessibles.</p>
+  <div class="chart" id="chart"></div>
+  <div class="legend">
+    <span><span class="sw" style="background:var(--ok)"></span>Ouvert directement</span>
+    <span><span class="sw" style="background:var(--mid)"></span>Possible en concomitance (tu finis tes cours manquants pendant le DEP)</span>
+    <span><span class="sw" style="background:var(--nobg);border:1px solid var(--line)"></span>Fermé</span>
+  </div>
+  <div class="verdict" id="verdict"></div>
+  <div class="checks"><label><input type="checkbox" id="tdg"> Montrer aussi ce qui devient possible à 18 ans avec le test de développement général (TDG)</label></div>
+</section>
+
+<section class="panel" aria-labelledby="t2">
+  <h2 id="t2">2. Filtrer la liste</h2>
+  <div class="filters">
+    <label>Recherche<input type="search" id="q" placeholder="grue, bois, mine…"></label>
+    <label>Diplôme<select id="fType"><option value="">Tous</option><option>DEP</option><option>DEC</option><option>AEC</option><option>ASP</option><option>Autre</option></select></label>
+    <label>Durée maximale<select id="fDur"><option value="99">Peu importe</option><option value="9">9 mois et moins</option><option value="14">14 mois et moins</option><option value="20">20 mois et moins</option></select></label>
+    <label>Lieu<select id="fZone"><option value="">Partout</option><option value="pres">Lévis, Québec, Lotbinière</option><option value="region">Aussi Beauce, Thetford, Portneuf</option></select></label>
+    <label>Voyager pour le travail<select id="fVoy"><option value="0">Peu importe</option><option value="2">Souvent</option><option value="3">Beaucoup (Nord, mer, chantiers éloignés)</option></select></label>
+    <label>Trier par<select id="sort"><option value="int">Mon intérêt</option><option value="acc">Accessibilité</option><option value="dur">Durée</option><option value="nom">Nom</option></select></label>
+  </div>
+  <div class="chips" id="doms"></div>
+  <div class="checks">
+    <label><input type="checkbox" id="fEnt"> Bon potentiel pour partir à mon compte</label>
+    <label><input type="checkbox" id="fOpen"> Cacher ce qui est fermé à mon niveau</label>
+    <label><input type="checkbox" id="fOut"> Afficher les formations éliminées</label>
+  </div>
+</section>
+
+<div class="count" id="count"></div>
+<div class="grid" id="grid"></div>
+
+<section class="panel" aria-labelledby="t3">
+  <h2 id="t3">3. Mes choix</h2>
+  <div id="picks"></div>
+  <div class="tools">
+    <button class="primary" id="copy">Copier mon résumé</button>
+    <button id="reset">Tout remettre à zéro</button>
+  </div>
+</section>
+
+<section class="panel" aria-labelledby="t4">
+  <h2 id="t4">Bon à savoir</h2>
+  <details><summary>Comment on entre dans un DEP</summary>
+    <p>Quatre portes, une seule suffit : le DES ; avoir 16 ans et les cours exigés en français, anglais et maths (3e ou 4e secondaire selon le programme) ; avoir 18 ans, réussir le TDG et les préalables du programme ; ou avoir la 3e secondaire dans ces trois matières et finir le reste en concomitance. La concomitance n'est pas offerte dans tous les centres : demande-le avant de t'inscrire.</p>
+  </details>
+  <details><summary>Grutier, ça ressemble à quoi ?</summary>
+    <p>Tu conduis une grue mobile, une grue à tour ou un camion-flèche pour lever et déplacer des charges : poutres, coffrages, machinerie, conteneurs. Il faut du calme, de la précision, une bonne perception des distances et le goût du travail en équipe par radio et par signaux. Chantiers de bâtiments, ponts, éoliennes, ports, industrie lourde.</p>
+    <p>Le DEP Conduite de grues dure 870 heures et se donne à seulement deux endroits au Québec, dont Lévis. Taux de placement de 93 %, salaire médian autour de 44 $ l'heure. Pour entrer sur les chantiers, il faut ensuite une garantie d'emploi de 150 heures d'un employeur.</p>
+  </details>
+  <details><summary>Voir une mine pour vrai</summary>
+    <p><b>Semaine minière du Québec</b> : chaque année, fin avril et début mai, avec des visites de sites miniers et des journées sur les métiers, surtout en Abitibi. <a href="https://amq-inc.com/semaine-miniere/" target="_blank" rel="noopener">Programmation</a></p>
+    <p><b>Mine Canadian Malartic</b> (Abitibi) : visite guidée d'une des plus grandes mines d'or à ciel ouvert au pays, du 19 juin au 30 août 2027. <a href="https://www.bonjourquebec.com/fr/repertoire/quoi-faire/visite-de-la-mine-canadian-malartic/16jj" target="_blank" rel="noopener">Détails</a></p>
+    <p><b>Québec Mines + Énergie</b> : congrès et exposition au Centre des congrès de Québec, du 16 au 19 novembre 2026. <a href="https://mrnf.gouv.qc.ca/quebec-mines/" target="_blank" rel="noopener">Site</a></p>
+    <p><b>Cégep de Thetford</b> : portes ouvertes le 16 janvier 2027 et journées « étudiant d'un jour » en technologie minérale. <a href="https://www.cegepthetford.ca/viens-nous-voir/portes-ouvertes/" target="_blank" rel="noopener">Détails</a></p>
+    <p><b>Vidéos de métiers miniers</b> par l'Institut national des mines : <a href="https://inmq.gouv.qc.ca/unmondeaexplorer2025_2026" target="_blank" rel="noopener">Un monde à explorer</a></p>
+  </details>
+  <details><summary>Étudier ou travailler ailleurs au Canada</summary>
+    <p>Presque toutes ces voies demandent quand même l'équivalent d'un secondaire 4 ou 5. Hors Québec, la scolarité est payante, sauf à la Garde côtière et dans les Forces armées, qui te paient pour apprendre. Les prêts et bourses du Québec peuvent s'appliquer ailleurs au Canada si l'école est reconnue : à vérifier école par école.</p>
+    <p>D'autres idées à fouiller, pas encore vérifiées : monteur d'acier de structure, échafaudeur, cordiste (travaux sur corde), mécanicien d'ascenseur, entretien d'aéronefs, pilote, chef de train, foreur pétrolier dans l'Ouest, guide d'aventure.</p>
+  </details>
+  <details><summary>Essayer avant de choisir</summary>
+    <p>Les centres de Lévis offrent « Élève d'un jour » toute l'année : tu passes une journée dans le programme de ton choix. <a href="https://taformation.ca/eleve-dun-jour/" target="_blank" rel="noopener">Réserver</a>. Portes ouvertes de l'école de la construction de Québec (ÉMOICQ) : samedi 6 février 2027, 10 h à 14 h. <a href="https://emoicq.cssc.gouv.qc.ca/portes-ouvertes/" target="_blank" rel="noopener">Détails</a></p>
+  </details>
+</section>
+
+<footer>
+  <p>Données rassemblées le 9 novembre 2026 à partir de la brochure 2026-2027 des programmes de formation professionnelle (Capitale-Nationale et Chaudière-Appalaches), de la CCQ, de Québec.ca et des sites des établissements. Les préalables marqués « à valider » et les conditions exactes de chaque programme sont à confirmer avec un conseiller d'orientation ou le centre de formation. Les salaires sont des repères, pas des promesses.</p>
+</footer>
 </div>
+
+<script>
+// [id, nom, type, domaine, heures(0=DEC), lieu, zone, req, voyage, compte, salaire, perspectives, description, lien, aValider]
+// req : 2 = 3e sec. | 1 = 4e sec. | 'des' = DES | 'desm' = DES + maths/sciences
+var A='https://www.admissionfp.com/programmes-et-formations/dep/';
+var D=[
+['charp','Charpenterie-menuiserie','DEP','Construction',1350,'Québec (ÉMOICQ), Laurier-Station, Sainte-Marie, Saint-Georges','pres',1,1,3,'27 $ à 50 $/h','Excellentes','Charpentes, coffrages, murs, toitures, finition intérieure. Le plus gros métier de la construction.',A+'5319'],
+['ferb','Ferblanterie','DEP','Construction',1605,'Québec (ÉMOICQ), Thetford Mines','pres',1,1,2,'Convention CCQ','Favorables','Conduits de ventilation, revêtements et toitures métalliques. Petit métier en manque de relève.',A+'5360'],
+['elec','Électricité','DEP','Construction',1800,'Québec (ÉMOICQ), Lévis, Saint-Georges','pres',1,2,3,'24 $ à 51 $/h','Excellentes','Installations électriques de bâtiments, d\'usines et de chantiers. Métier reconnu partout au Canada.',A+'5295'],
+['briq','Briquetage-maçonnerie','DEP','Construction',900,'Québec (ÉMOICQ)','pres',2,1,3,'Convention CCQ','Favorables','Murs de brique, de pierre et de blocs, cheminées, restauration de bâtiments anciens.',A+'5303'],
+['carr','Carrelage','DEP','Construction',690,'Québec (ÉMOICQ)','pres',2,1,3,'Convention CCQ','Favorables','Pose de céramique, de marbre et de granit. Travail minutieux, beaucoup de travailleurs autonomes.',A+'5300'],
+['pein','Peinture en bâtiment','DEP','Construction',900,'Québec (ÉMOICQ)','pres',2,1,3,'Convention CCQ','Favorables','Préparation des surfaces, peinture, revêtements. Facile de démarrer sa petite entreprise.',A+'5336'],
+['plat','Plâtrage','DEP','Construction',810,'Québec (ÉMOICQ)','pres',2,1,2,'Convention CCQ','Favorables','Tirage de joints, enduits, moulures décoratives.',A+'5392'],
+['toit','Pose de revêtements de toiture','DEP','Construction',630,'Québec (ÉMOICQ), en alternance travail-études','pres',2,1,2,'Convention CCQ','Favorables','Couvreur : bardeaux, membranes, toits plats. Dehors et en hauteur.',A+'5351'],
+['sysi','Pose de systèmes intérieurs','DEP','Construction',735,'Québec (ÉMOICQ), en alternance travail-études','pres',2,1,2,'Convention CCQ','Favorables','Divisions métalliques, plafonds suspendus, gypse dans les bâtiments commerciaux.',A+'5350'],
+['beto','Préparation et finition de béton','DEP','Construction',900,'Québec (ÉMOICQ)','pres',2,1,2,'Convention CCQ','Favorables','Cimentier-applicateur : couler, niveler et finir les dalles, trottoirs et planchers.',A+'5343'],
+['souple','Installation de revêtements souples','DEP','Construction',900,'Québec (ÉMOICQ), en alternance travail-études','pres',2,1,3,'Convention CCQ','Favorables','Tapis, vinyle, planchers flottants et de bois.',A+'5334'],
+['plom','Plomberie-chauffage','DEP','Construction',1680,'Québec (CFP Samuel-De Champlain)','pres',1,1,3,'Convention CCQ','Favorables','Tuyauteur : eau, chauffage, gaz. Très demandé, bon métier pour devenir entrepreneur.',A+'5333'],
+['frig','Réfrigération','DEP','Construction',1800,'Québec (CFP de Québec)','pres',1,2,2,'Convention CCQ','Bonnes','Frigoriste : climatisation, chambres froides, arénas, thermopompes.',A+'5386'],
+['arp','Arpentage et topographie','DEP','Construction',1800,'Québec (CFP de Neufchâtel)','pres',1,2,1,'—','Bonnes','Mesurer et implanter routes, bâtiments et terrains avec GPS et stations totales. Dehors, sur chantiers et en forêt.',A+'5238'],
+['lign','Montage de lignes électriques et de télécommunications','DEP','Engins, lignes et mines',1140,'Saint-Henri-de-Lévis','pres',2,3,1,'28 $ à 49 $/h','Placement 86 %','Monteur de lignes : grimper, installer et réparer les réseaux. Le métier de la construction qui voyage le plus. Tests physiques à l\'admission.','https://taformation.ca/centres/centre-de-formation-en-montage-de-lignes/'],
+['engin','Conduite d\'engins de chantier','DEP','Engins, lignes et mines',1095,'Lévis (centre national)','pres',2,2,2,'Convention CCQ','Favorables','Pelle, bouteur, niveleuse, chargeuse. Routes, barrages, mines, chantiers nordiques. Test de sélection.',A+'5220'],
+['grue','Conduite de grues','DEP','Engins, lignes et mines',870,'Lévis (centre national)','pres',2,2,1,'Médiane 44 $/h','Placement 93 %','Grutier : lever et déplacer des charges avec précision. Bâtiments, ponts, éoliennes, ports.',A+'5248'],
+['meng','Mécanique d\'engins de chantier','DEP','Engins, lignes et mines',1800,'Lévis, Québec (CFP Wilbrod-Bherer)','pres',1,3,2,'45 $ à 51 $/h en mine','Très demandé','Réparer pelles, camions miniers et bouteurs. La porte classique vers les mines en rotation 14/14, après quelques années d\'expérience.',A+'5331'],
+['vlourd','Mécanique de véhicules lourds routiers','DEP','Engins, lignes et mines',1800,'Lévis, Québec (CFP Wilbrod-Bherer)','pres',1,1,2,'—','Bonnes','Entretien et réparation de camions et d\'autobus.',A+'5330'],
+['extr','Extraction de minerai','DEP','Engins, lignes et mines',930,'Val-d\'Or, Chibougamau','loin',2,3,0,'—','Placement 92 %','Mineur sous terre : forer, dynamiter, soutenir les galeries, conduire la machinerie.',A+'5368',1],
+['fdiam','Forage au diamant','DEP','Engins, lignes et mines',600,'Val-d\'Or, Chibougamau, Forestville','loin',2,3,1,'—','Placement 69 %','Foreur d\'exploration : prélever des carottes de roc en forêt et sous terre, souvent en camp éloigné.',A+'5253',1],
+['tmin','Conduite de machines de traitement du minerai','DEP','Engins, lignes et mines',900,'Val-d\'Or, Chibougamau','loin',2,3,0,'—','Placement 89 %','Opérer concasseurs, broyeurs et circuits qui séparent le métal de la roche, à l\'usine de la mine.',A+'5274'],
+['dyna','Forage et dynamitage','DEP','Engins, lignes et mines',900,'Hors région, à valider','loin',2,3,1,'Convention CCQ','Bonnes','Boutefeu-foreur : forer et dynamiter le roc sur les chantiers routiers, les carrières et les barrages.','https://www.quebec.ca/metiers-construction',1],
+['mind','Mécanique industrielle de construction et d\'entretien','DEP','Mécanique et fabrication',1800,'Saint-Georges (CIMIC), Thetford Mines, Donnacona','region',1,2,1,'24 $ à 50 $/h','Placement 85 %','Installer, entretenir et réparer la machinerie d\'usine : convoyeurs, pompes, hydraulique. Métier Sceau rouge ; sur chantier, 37 % des mécaniciens changent de région.',A+'5399'],
+['emec','Électromécanique de systèmes automatisés','DEP','Mécanique et fabrication',1800,'Lévis, Québec, Saint-Georges, Thetford Mines','pres',1,2,1,'—','Placement 82 %','Mécanique, électricité et automates réunis pour dépanner les lignes de production. Contient beaucoup d\'électricité.',A+'5388'],
+['soud','Soudage-assemblage','DEP','Mécanique et fabrication',1800,'Lévis, Québec, Saint-Georges, Thetford Mines','pres',1,2,2,'—','Bonnes','Souder et assembler des pièces d\'acier et d\'aluminium. Usines, chantiers, chantier naval, mines.',A+'5382'],
+['struc','Fabrication de structures métalliques et de métaux ouvrés','DEP','Mécanique et fabrication',1350,'Québec, Saint-Georges (CIMIC)','pres',2,1,2,'—','Bonnes','Couper, plier et assembler poutres, escaliers et garde-corps en atelier.',A+'5308'],
+['usin','Usinage','DEP','Mécanique et fabrication',1800,'Québec, Saint-Georges, Thetford Mines, Montmagny','pres',1,0,1,'—','Bonnes','Fabriquer des pièces de précision sur tours et machines à commande numérique.',A+'5371'],
+['eben','Ébénisterie','DEP','Bois, bâtiment et plein air',1650,'Québec (CFP de Neufchâtel)','pres',1,0,3,'—','Bonnes','Meubles, armoires et boiseries sur mesure. Proche de la menuiserie, côté atelier.',A+'5352'],
+['dbat','Dessin de bâtiment','DEP','Bois, bâtiment et plein air',1800,'Québec, Thetford Mines','pres',1,0,1,'—','Bonnes','Dessiner les plans de maisons et de bâtiments à l\'ordinateur.',A+'5250'],
+['imm','Entretien général d\'immeubles','DEP','Bois, bâtiment et plein air',900,'Québec (Centre du bâtiment)','pres',2,0,2,'—','Bonnes','Touche-à-tout : menuiserie, plomberie, électricité de base, peinture.',A+'5211'],
+['elag','Élagage','DEP','Bois, bâtiment et plein air',915,'Québec (Fierbourg)','pres',2,1,3,'—','Bonnes','Grimper et tailler ou abattre des arbres en ville. Physique, dehors, beaucoup de petites entreprises.',A+'5366'],
+['abat','Abattage manuel et débardage forestier','DEP','Bois, bâtiment et plein air',900,'Duchesnay','pres',2,2,2,'—','Bonnes','Travailleur forestier : abattre, ébrancher et sortir le bois avec la machinerie.',A+'5290'],
+['mate','Matelotage','DEP','Transport et maritime',735,'Lévis','pres',2,3,0,'—','Bonnes','Matelot sur les navires du Saint-Laurent, des Grands Lacs et au long cours.','https://taformation.ca/programmes/matelotage/'],
+['cam','Transport par camion','DEP','Transport et maritime',615,'Québec (Charlesbourg)','pres',1,3,2,'—','Bonnes','Camionneur longue distance. Un permis de conduire avec expérience est exigé avant d\'entrer.',A+'5291',1],
+['pomp','Intervention en sécurité incendie','DEP','Transport et maritime',1185,'Québec (CFP de Neufchâtel)','pres',1,0,0,'—','Contingenté','Pompier : combat d\'incendie, sauvetage, prévention. Admission très sélective.',A+'5322'],
+['gciv','Technologie du génie civil','DEC','Génie et techniques (cégep)',0,'Cégep Limoilou','pres','desm',2,2,'—','Bonnes','Routes, ponts, structures : arpentage, essais de béton et de sols, surveillance de chantier, estimation. Maths TS ou SN de 5e et sciences de 4e exigées.','https://www.cegeplimoilou.ca/portes-ouvertes/'],
+['gbat','Technologie du génie du bâtiment','DEC','Génie et techniques (cégep)',0,'Cégep Limoilou','pres','desm',1,2,'—','Bonnes','Mécanique du bâtiment : chauffage, ventilation, plomberie, efficacité énergétique. Maths TS ou SN de 4e et sciences exigées.','https://www.cegeplimoilou.ca/portes-ouvertes/'],
+['gmec','Techniques de génie mécanique','DEC','Génie et techniques (cégep)',0,'Cégep Limoilou','pres','desm',1,1,'—','Bonnes','Concevoir et fabriquer des pièces et des machines : dessin 3D, usinage, automatisation. Maths TS ou SN de 4e et physique de 5e.','https://www.cegeplimoilou.ca/portes-ouvertes/'],
+['gind','Technologie du génie industriel','DEC','Génie et techniques (cégep)',0,'Cégep Limoilou','pres','desm',1,2,'—','Bonnes','Organiser la production d\'une usine : méthodes, qualité, logistique. Maths TS ou SN de 4e.','https://www.cegeplimoilou.ca/portes-ouvertes/'],
+['arch','Technologie de l\'architecture','DEC','Génie et techniques (cégep)',0,'Cégep de Lévis, à valider','pres','desm',0,2,'—','Bonnes','Plans, devis et maquettes de bâtiments ; lien entre l\'architecte et le chantier. Maths TS ou SN de 4e.','https://www.cegeplevis.ca/etudier-ici/le-cegep/portes-ouvertes/',1],
+['tmine','Technologie minérale','DEC','Génie et techniques (cégep)',0,'Cégep de Thetford','region','desm',3,0,'—','Très demandé','Technicien minier en géologie, exploitation ou traitement du minerai. Emplois en Abitibi, sur la Côte-Nord et dans le Nord. Sciences de 4e exigées.','https://www.cegepthetford.ca/viens-nous-voir/portes-ouvertes/',1],
+['navi','Navigation','DEC','Transport et maritime',0,'Institut maritime du Québec, Rimouski','loin','desm',3,0,'—','Très demandé','Officier de pont : conduire des navires partout dans le monde. Stages en mer payés pendant les études.','https://www.imq.qc.ca/futurs-etudiants/decouverte'],
+['gmar','Techniques de génie mécanique de marine','DEC','Transport et maritime',0,'Institut maritime du Québec, Rimouski','loin','desm',3,0,'—','Très demandé','Officier mécanicien : faire tourner les moteurs et les systèmes d\'un navire. Stages en mer.','https://www.imq.qc.ca/futurs-etudiants/decouverte'],
+['meub','Techniques du meuble et d\'ébénisterie','DEC','Bois, bâtiment et plein air',0,'École nationale du meuble, Victoriaville','region','des',0,3,'—','Bonnes','Conception et fabrication de meubles, gestion d\'atelier. Aucun cours de maths ou de sciences particulier exigé.','https://www.ecolenationaledumeuble.ca/futurs-eleves/po/'],
+['plong','Plongée professionnelle','AEC','Transport et maritime',-9,'Institut maritime du Québec, Rimouski','loin','des',3,1,'—','Bonnes','Scaphandrier : inspection, soudage et travaux sous l\'eau sur les barrages, les quais et les ponts.','https://www.imq.qc.ca/futurs-etudiants/decouverte',1],
+['gcc','Officier de la Garde côtière canadienne','Autre','Ailleurs au Canada et hors du commun',-48,'Sydney, Nouvelle-Écosse (école bilingue)','loin','desm',3,0,'Études payées','Emploi garanti','Quatre ans pour devenir officier de navigation ou de génie maritime. Scolarité, logement et repas gratuits, plus une allocation. Un poste t\'attend à la sortie. La Garde côtière forme aussi des officiers de trafic maritime en 6 mois.','https://www.canada.ca/fr/garde-cotiere-canadienne/services/academie/programme-formation-officiers.html',1,'Secondaire complet avec maths et sciences ; cours exacts selon la province'],
+['fac','Métier dans les Forces armées canadiennes','Autre','Ailleurs au Canada et hors du commun',-3,'Formation de base au Québec, puis partout au Canada','loin','s4',3,0,'Salaire dès le premier jour','En recrutement','Mécanicien de véhicules, technicien naval, sapeur de combat et des dizaines d\'autres métiers. Formation payée, 3 mois de formation de base puis l\'école de métier. Tu t\'engages pour une période fixe. Tu peux finir ton secondaire pendant ton service.','https://www.forces.ca/fr',0,'4e secondaire terminée ; 17 ans avec l\'accord des parents (certains métiers demandent plus)'],
+['alb','Apprenti charpentier en Alberta (Sceau rouge)','Autre','Ailleurs au Canada et hors du commun',-48,'Alberta ; école par blocs de 8 semaines','loin','ex',2,3,'Payé pendant l\'apprentissage','Bonnes','Là-bas, tu te fais d\'abord embaucher, puis tu alternes chantier et école pendant 4 ans. Le Sceau rouge te permet ensuite de travailler partout au Canada. En anglais.','https://tradesecrets.alberta.ca/get-started/become-an-apprentice/eligibility-and-entrance-requirements/',0,'Un examen d\'entrée (maths, anglais, sciences) remplace le diplôme ; il faut habiter l\'Alberta et trouver un employeur, donc plutôt à 18 ans'],
+['eolab','Technicien d\'éoliennes (Lethbridge)','Autre','Ailleurs au Canada et hors du commun',-10,'Lethbridge, Alberta','loin','des',3,0,'—','Très demandé','Un an pour apprendre à entretenir des éoliennes : mécanique, hydraulique, sauvetage en hauteur. Certification GWO reconnue dans le monde entier. En anglais. Contient beaucoup d\'électricité.','https://lethpolytech.ca/programs-and-courses/wind-turbine-technician',1,'Secondaire complet, ou un examen d\'entrée de l\'apprentissage en électricité'],
+['eolqc','Maintenance d\'éoliennes (Gaspé)','AEC','Ailleurs au Canada et hors du commun',-13,'Cégep de la Gaspésie et des Îles, Gaspé','loin','des',3,0,'—','Très demandé','La version québécoise, en français : entretien préventif et réparation d\'éoliennes, travail en hauteur. Contient beaucoup d\'électricité.','https://cegepgim.ca/en/news-en/the-cegep-de-la-gaspesie-et-des-iles-obtains-gwo-certification-for-new-wind-turbine-maintenance-training-courses/',1,'Formation jugée suffisante par le cégep, avec maths et sciences de 4e secondaire'],
+['rov','Pilote de robots sous-marins (ROV)','Autre','Ailleurs au Canada et hors du commun',-24,'Marine Institute, St. John\'s, Terre-Neuve','loin','desm',3,0,'—','Bonnes','Deux ans pour piloter et réparer les robots qui travaillent sous l\'eau : plateformes pétrolières, pipelines, câbles sous-marins. La voie la plus directe vers le travail en mer. En anglais ; examen médical exigé.','https://www.mi.mun.ca/programs/remotelyoperatedvehicles/',1],
+['sopf','Pompier forestier (SOPFEU)','Autre','Ailleurs au Canada et hors du commun',-1,'Bases partout au Québec, dont Duchesnay','region',2,3,0,'—','Recrutement chaque année','Combattre les feux de forêt, souvent déposé en hélicoptère. Emploi saisonnier qui laisse l\'hiver libre ; renforts envoyés ailleurs au Canada. La SOPFEU donne la formation après l\'embauche. L\'Ontario embauche aussi, en anglais.','https://sopfeu.qc.ca/devenir-pompier-forestier/',0,'D\'abord un DEP, un DEC ou un bac en foresterie, faune ou sécurité incendie (le DEP forestier demande la 3e secondaire)'],
+['gest','Gestion d\'une entreprise de la construction','ASP','Gestion',450,'Lévis, Québec (ÉMOICQ), à temps partiel','pres','des',0,3,'—','—','Pour l\'entrepreneur : soumissions, lois, comptabilité, gestion de chantier. Exige le français et l\'anglais de 5e secondaire. À faire après quelques années de métier.','https://www.admissionfp.com/programmes-et-formations/asp/5309']
+];
+var F=D.map(function(r){var h=r[4],m=h>0?Math.round(h/105):(h<0?-h:36);return{id:r[0],nom:r[1],type:r[2],dom:r[3],h:h,mois:m,lieu:r[5],zone:r[6],req:r[7],voy:r[8],ent:r[9],sal:r[10],persp:r[11],desc:r[12],lien:r[13],av:!!r[14],rq:r[15]}});
+var NIV=[['Sans la 3e sec.','français, anglais ou maths manquants'],['3e sec. réussie','français, anglais, maths'],['4e sec. réussie','français, anglais, maths'],['DES','secondaire 5 complété'],['DES + maths et sciences','maths TS ou SN, sciences']];
+var REQTXT={2:'3e secondaire en français, anglais et maths',1:'4e secondaire en français, anglais et maths',des:'Diplôme d\'études secondaires (DES)',desm:'DES avec maths et sciences enrichies',s4:'4e secondaire terminée',ex:'Examen d\'entrée'};
+var KEY='options-formations-v1',S={niv:1,tdg:false,int:{},out:{}};
+try{var s=JSON.parse(localStorage.getItem(KEY));if(s)for(var k in s)S[k]=s[k]}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function $(i){return document.getElementById(i)}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+// 2 = ouvert, 1 = concomitance, 0 = fermé
+function acces(f,n){var r=f.req;if(r===2)return n>=1?2:0;if(r===1)return n>=2?2:(n===1?1:0);if(r==='ex')return 2;if(r==='s4')return n>=2?2:0;if(r==='des')return n>=3?2:0;return n>=4?2:0}
+function tdgOk(f,n){return S.tdg&&(f.req===1||f.req===2)&&acces(f,n)<2}
+function actifs(){return F.filter(function(f){return!S.out[f.id]})}
+function drawChart(){
+  var L=actifs(),N=L.length||1,h='';
+  NIV.forEach(function(v,i){var o=0,c=0;L.forEach(function(f){var a=acces(f,i);if(a===2)o++;else if(a===1)c++});
+    h+='<button class="col" aria-pressed="'+(S.niv===i)+'" data-n="'+i+'"><span class="num">'+(o+c)+'</span><span class="stack"><span class="seg-mid" style="height:'+(c/N*100)+'%"></span><span class="seg-ok" style="height:'+(o/N*100)+'%"></span></span><b>'+v[0]+'</b><small>'+v[1]+'</small></button>'});
+  $('chart').innerHTML=h;
+  var o=0,c=0,t=0;L.forEach(function(f){var a=acces(f,S.niv);if(a===2)o++;else if(a===1)c++;else if(tdgOk(f,S.niv))t++});
+  var msg=NIV[S.niv][0]+' : '+o+' formation'+(o>1?'s':'')+' ouverte'+(o>1?'s':'')+' sur '+L.length;
+  if(c)msg+=', plus '+c+' en concomitance';
+  if(t)msg+=', et '+t+' de plus à 18 ans avec le TDG';
+  if(S.niv===0&&!t)msg+='. Chaque cours réussi ouvre des portes : regarde la colonne suivante.';
+  else msg+='.';
+  $('verdict').textContent=msg;
+}
+var dom='';
+function drawDoms(){var ds=[];F.forEach(function(f){if(ds.indexOf(f.dom)<0)ds.push(f.dom)});
+  $('doms').innerHTML='<button class="chip" aria-pressed="'+(dom==='')+'" data-d="">Tous les domaines</button>'+ds.map(function(d){return'<button class="chip" aria-pressed="'+(dom===d)+'" data-d="'+esc(d)+'">'+esc(d)+'</button>'}).join('')}
+function dots(n){var h='<span class="dots" aria-label="'+n+' sur 3">';for(var i=1;i<=3;i++)h+='<i'+(i<=n?' class="on"':'')+'></i>';return h+'</span>'}
+function duree(f){if(f.type==='DEC')return'3 ans';if(f.h<0)return f.mois>=24?(f.mois/12)+' ans':f.id==='fac'?'3 mois de base, puis l\'école de métier':f.id==='sopf'?'Quelques semaines, après l\'embauche':'environ '+f.mois+' mois';return f.h+' h, environ '+f.mois+' mois'}
+function draw(){
+  drawChart();drawDoms();
+  var q=$('q').value.trim().toLowerCase(),ty=$('fType').value,du=+$('fDur').value,zo=$('fZone').value,vo=+$('fVoy').value,en=$('fEnt').checked,op=$('fOpen').checked,so=$('fOut').checked;
+  var L=F.filter(function(f){
+    if(S.out[f.id]&&!so)return false;
+    if(dom&&f.dom!==dom)return false;
+    if(ty&&f.type!==ty)return false;
+    if(f.mois>du)return false;
+    if(zo==='pres'&&f.zone!=='pres')return false;
+    if(zo==='region'&&f.zone==='loin')return false;
+    if(f.voy<vo)return false;
+    if(en&&f.ent<2)return false;
+    if(op&&acces(f,S.niv)===0&&!tdgOk(f,S.niv))return false;
+    if(q&&(f.nom+' '+f.desc+' '+f.dom+' '+f.lieu).toLowerCase().indexOf(q)<0)return false;
+    return true});
+  var sm=$('sort').value;
+  L.sort(function(a,b){
+    var oa=S.out[a.id]?1:0,ob=S.out[b.id]?1:0;if(oa!==ob)return oa-ob;
+    if(sm==='int'){var d=(S.int[b.id]||0)-(S.int[a.id]||0);if(d)return d;d=acces(b,S.niv)-acces(a,S.niv);if(d)return d}
+    if(sm==='acc'){var d2=acces(b,S.niv)-acces(a,S.niv);if(d2)return d2}
+    if(sm==='dur'){var d3=a.mois-b.mois;if(d3)return d3}
+    return a.nom.localeCompare(b.nom,'fr')});
+  $('count').textContent=L.length+' formation'+(L.length>1?'s':'')+' affichée'+(L.length>1?'s':'')+' sur '+F.length;
+  $('grid').innerHTML=L.map(function(f){
+    var a=acces(f,S.niv),t=tdgOk(f,S.niv),out=!!S.out[f.id],it=S.int[f.id]||0;
+    var b=a===2?'<span class="badge b-ok">Ouvert à ce niveau</span>':a===1?'<span class="badge b-mid">Possible en concomitance</span>':t?'<span class="badge b-mid">Possible à 18 ans avec le TDG</span>':'<span class="badge b-no">Fermé à ce niveau</span>';
+    var lab=['Un peu','Beaucoup','Coup de cœur'],ib='';
+    for(var i=1;i<=3;i++)ib+='<button data-int="'+i+'" data-id="'+f.id+'" aria-pressed="'+(it===i)+'">'+lab[i-1]+'</button>';
+    return'<article class="card'+(out?' out':(a===0&&!t?' closed':''))+'">'+
+      '<div class="meta">'+esc(f.type)+' · '+esc(f.dom)+'</div><h3>'+esc(f.nom)+'</h3><div>'+b+'</div>'+
+      '<p class="desc">'+esc(f.desc)+'</p>'+
+      '<dl><dt>Il faut</dt><dd>'+esc(f.rq||REQTXT[f.req])+(f.av?' (à valider)':'')+'</dd>'+
+      '<dt>Durée</dt><dd>'+duree(f)+'</dd>'+
+      '<dt>Où</dt><dd>'+esc(f.lieu)+'</dd>'+
+      (f.sal!=='—'?'<dt>Salaire</dt><dd>'+esc(f.sal)+'</dd>':'')+
+      (f.persp!=='—'?'<dt>Emploi</dt><dd>'+esc(f.persp)+'</dd>':'')+
+      '<dt>Voyage</dt><dd>'+dots(f.voy)+'</dd><dt>À mon compte</dt><dd>'+dots(f.ent)+'</dd></dl>'+
+      '<a href="'+esc(f.lien)+'" target="_blank" rel="noopener">Voir la formation</a>'+
+      '<div class="actions"><span class="int">'+ib+'</span><button class="kill" data-kill="'+f.id+'">'+(out?'Remettre':'Éliminer')+'</button></div></article>'}).join('')||'<p class="meta">Aucune formation ne correspond à ces filtres.</p>';
+  drawPicks();
+}
+function resume(){
+  var g={3:[],2:[],1:[]},o=[];
+  F.forEach(function(f){if(S.out[f.id])o.push(f.nom);else if(S.int[f.id])g[S.int[f.id]].push(f.nom)});
+  return{g:g,o:o}}
+function drawPicks(){var r=resume(),h='',n=['','Un peu','Beaucoup','Coup de cœur'];
+  [3,2,1].forEach(function(i){if(r.g[i].length)h+='<p><b>'+n[i]+' :</b> '+r.g[i].map(esc).join(', ')+'</p>'});
+  if(r.o.length)h+='<p class="meta"><b>Éliminées ('+r.o.length+') :</b> '+r.o.map(esc).join(', ')+'</p>';
+  $('picks').innerHTML=h||'<p class="meta">Rien de noté pour l\'instant. Utilise les boutons sous chaque formation.</p>'}
+function texte(){var r=resume(),n=['','Un peu','Beaucoup','Coup de cœur'],t='Mes choix de formations\nNiveau visé : '+NIV[S.niv][0]+'\n';
+  [3,2,1].forEach(function(i){if(r.g[i].length)t+=n[i]+' : '+r.g[i].join(', ')+'\n'});
+  if(r.o.length)t+='Éliminées : '+r.o.join(', ')+'\n';return t}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  if(b.dataset.n!==undefined){S.niv=+b.dataset.n}
+  else if(b.dataset.d!==undefined){dom=b.dataset.d}
+  else if(b.dataset.int){var id=b.dataset.id,v=+b.dataset.int;S.int[id]=S.int[id]===v?0:v}
+  else if(b.dataset.kill){var k=b.dataset.kill;if(S.out[k])delete S.out[k];else S.out[k]=1}
+  else if(b.id==='reset'){if(!confirm('Effacer toutes tes notes et tes éliminations ?'))return;S.int={};S.out={}}
+  else if(b.id==='copy'){var t=texte();var done=function(){b.textContent='Copié !';setTimeout(function(){b.textContent='Copier mon résumé'},1500)};
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done,function(){prompt('Copie ce texte :',t)});else prompt('Copie ce texte :',t);return}
+  else return;
+  save();draw()});
+['q','fType','fDur','fZone','fVoy','sort','fEnt','fOpen','fOut'].forEach(function(i){$(i).addEventListener('input',draw)});
+$('tdg').checked=S.tdg;$('tdg').addEventListener('change',function(){S.tdg=this.checked;save();draw()});
+draw();
+</script>
 </body>
 </html>
